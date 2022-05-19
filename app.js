@@ -18,8 +18,8 @@ function drawCrusts() {
         template +=
             ` 
         <div class="col-4 my-1 p-1 justify-content-around" onClick="addCrustCart(${item.id})">
-        <img class="img-fluid " src="${item.image}" alt="">
-        <h5 class= "text-center"><b>${item.name}</b></h5> 
+        <img class="img-fluid w-100  h-100" src="${item.image}" alt="">
+        <h5 class= "text-center text-light bg-dark"><b>${item.name}</b></h5> 
         <p>$${item.price}</p>
     </div> `
     })
@@ -32,10 +32,10 @@ function drawSauce() {
     sauce.forEach(item => {
         template +=
             ` 
-        <div class="col-4 my-1 p-1 justify-content-around"  onClick="addSauceCart(${item.id})">
+        <div class="col-4 my-1 p-1 justify-content-between bg-dark"  onClick="addSauceCart(${item.id})">
         <img class="img-fluid" src="${item.image}" alt="">
-        <h5 class= "text-center"><b>${item.name}</b></h5> 
-        <p>$${item.price}</p>
+        <h5 class= "text-center text-light bg-dark"><b>${item.name}</b></h5> 
+        <p class="text-light bg-dark">$${item.price}</p>
     </div> `
     })
     document.getElementById('sauce-items').innerHTML = template
@@ -47,8 +47,8 @@ function drawToppings() {
         template +=
             ` 
         <div class="col-4 my-1 p-1 justify-content-around" onCLick="addToppingCart(${item.id})">
-        <img class="img-fluid " src="${item.image}" alt="">
-        <h5 class= "text-center"><b>${item.name}</b></h5> 
+        <img class="img-fluid rounded-top image-cover w-100" src="${item.image}" alt="">
+        <h5 class= "text-center text-light bg-dark"><b>${item.name}</b></h5> 
         <p>$${item.price}</p>
     </div> `
     })
@@ -68,9 +68,9 @@ function drawOrder() {
 
     })
 
-    document.getElementById('total').innerText = total.toFixed
-    document.getElementById('order-items').innerHTML
-    document.getElementById('total-order-items').innerText = order.length.toString
+    document.getElementById('total').innerText = total.toFixed(2)
+    document.getElementById('order-items').innerHTML = template
+    document.getElementById('total-order-items').innerText = order.length.toString()
 }
 
 
@@ -83,7 +83,7 @@ function addCrustCart(id) {
         order.push(found)
         drawOrder()
     }
-    document.getElementById('checkout-button')
+    document.getElementById('checkout-button').disabled = false
 }
 
 function addSauceCart(id){
@@ -93,7 +93,7 @@ function addSauceCart(id){
         order.push(found)
         drawOrder()
     }
-    document.getElementById('checkout-button')
+    document.getElementById('checkout-button').disabled = false
 }
 
 function addToppingCart(id){
@@ -103,7 +103,18 @@ function addToppingCart(id){
         order.push(found)
         drawOrder()
     }
-    document.getElementById('checkout-button')
+    document.getElementById('checkout-button').disabled = false
+}
+
+
+function checkout(){
+    order.length = 0
+    drawOrder()
+    document.getElementById('checkout-button').disabled = true
+    setTimeout(() => { 
+        bootstrap.Offcanvas.getOrCreateInstance(document.getElementById('order')).hide()
+    
+    },1000)
 }
 
 
@@ -112,3 +123,4 @@ function addToppingCart(id){
 drawCrusts()
 drawSauce()
 drawToppings()  
+drawOrder()

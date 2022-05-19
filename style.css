@@ -12,3 +12,26 @@ body {
   .object-cover {
     object-fit: cover;
   }
+
+
+  .action{
+    cursor: pointer;
+    transition: all 25.s ease;
+  }
+
+  action:hover{
+    transform: scale(1.01);
+  }
+
+  .shopCart{
+    border-radius: 40%;
+    position: fixed;
+     top: 3em;
+     right: 1em;
+     z-index: 10;
+  }
+
+  .image-cover{
+      object-fit: cover;
+    
+  }
